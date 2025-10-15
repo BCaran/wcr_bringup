@@ -48,26 +48,16 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-    driving_controller_spawner = Node(
+    driving_pid_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["pid_controller_fl_wheel", "--controller-manager", "/controller_manager"],
     )
     
-    init_command = ExecuteProcess(
-    cmd=[
-        "ros2", "topic", "pub", "--once",
-        "/steering_position_controller/commands",
-        "std_msgs/msg/Float64MultiArray",
-        "{data: [0.0, 0.0, 0.0, 0.0]}"
-    ],
-    output="screen"
-)
 
     return LaunchDescription([
         robot_state_publisher_node,
         control_node,
         joint_state_broadcaster_spawner,
-        driving_controller_spawner,
-        init_command
+        driving_pid_spawner,
     ])
