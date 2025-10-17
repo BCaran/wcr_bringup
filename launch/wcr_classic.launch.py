@@ -60,6 +60,11 @@ def generate_launch_description():
         arguments=["steering_position_controller", "--controller-manager", "/controller_manager"],
     )
     
+    odometry_node = Node(
+        package="wcr_odometry",
+        executable="odometry",
+    )
+    
     init_command = ExecuteProcess(
     cmd=[
         "ros2", "topic", "pub", "--once",
@@ -76,5 +81,6 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         driving_controller_spawner,
         steering_position_controller,
-        init_command
+        init_command,
+        odometry_node
     ])
