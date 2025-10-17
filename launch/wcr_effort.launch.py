@@ -54,10 +54,16 @@ def generate_launch_description():
         executable="spawner",
         arguments=["forward_effort_controller", "--controller-manager", "/controller_manager"],
     )
+    
+    odometry_node = Node(
+        package="wcr_odometry",
+        executable="odometry",
+    )
 
     return LaunchDescription([
         robot_state_publisher_node,
         control_node,
         joint_state_broadcaster_spawner,
         forward_effort_spawner,
+        odometry_node
     ])

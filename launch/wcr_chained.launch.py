@@ -54,10 +54,16 @@ def generate_launch_description():
         arguments=["pid_controller_fl_wheel", "--controller-manager", "/controller_manager"],
     )
     
+    odometry_node = Node(
+        package="wcr_odometry",
+        executable="odometry",
+    )
+    
 
     return LaunchDescription([
         robot_state_publisher_node,
         control_node,
         joint_state_broadcaster_spawner,
         driving_pid_spawner,
+        odometry_node
     ])
