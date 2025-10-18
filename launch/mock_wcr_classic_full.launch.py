@@ -70,15 +70,13 @@ def generate_launch_description():
         executable="inv_kin_controller",
     )
     
-    init_command = ExecuteProcess(
-    cmd=[
-        "ros2", "topic", "pub", "--once",
-        "/steering_position_controller/commands",
-        "std_msgs/msg/Float64MultiArray",
-        "{data: [0.0, 0.0, 0.0, 0.0]}"
-    ],
-    output="screen"
-)
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        #arguments=['-d', '/path/to/your/config.rviz']  # optional: pre-load config
+    )
 
     return LaunchDescription([
         robot_state_publisher_node,
@@ -86,7 +84,7 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         driving_controller_spawner,
         steering_position_controller,
-        init_command,
         odometry_node,
-        inv_kin_controller
+        inv_kin_controller,
+        rviz_node
     ])
