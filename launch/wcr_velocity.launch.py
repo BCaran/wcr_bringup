@@ -30,7 +30,7 @@ def generate_launch_description():
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        parameters=[{'robot_description': robot_description}]
+        parameters=[{'robot_description': robot_description}],
     )
 
     control_node = Node(
@@ -47,7 +47,6 @@ def generate_launch_description():
         package="controller_manager",
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
-        remappings=[("/joint_states", "/wcr/joint_states")],
     )
 
     driving_controller_spawner = Node(
